@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Job #{{ job.id }} – {{ job.title }}</h1>
+  <p>Status: <strong>{{ job.status }}</strong></p>
+
+  <!-- Advance -->
+  <form method="post" action="{{ url_for('jobs.advance', job_id=job.id) }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="btn">Advance</button>
+  </form>
+
+  <!-- Print -->
+  <form method="post" action="{{ url_for('jobs.print_job', job_id=job.id) }}" style="margin-top: 1rem;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="btn">Print</button>
+  </form>
+
+
+  <h2>Files</h2>
+  <ul>
+    {% for f in files %}
+      <li>{{ f.kind }} — <code>{{ f.path }}</code></li>
+    {% else %}
+      <li>No files uploaded.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Notes</h2>
+  <ul>
+    {% for n in notes %}
+      <li><strong>{{ n.created_at }}</strong> — {{ n.body }}</li>
+    {% else %}
+      <li>No notes yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
