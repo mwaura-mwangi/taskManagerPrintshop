@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Jobs</h1>
+
+<p><a href="{{ url_for('jobs.create') }}" class="btn">+ New Job</a></p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>Title</th><th>Status</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for j in jobs %}
+      <tr>
+        <td><a href="{{ url_for('jobs.detail', job_id=j.id) }}">#{{ j.id }}</a></td>
+        <td>{{ j.title }}</td>
+        <td>{{ j.status }}</td>
+        <td>
+          <!-- Advance (POST) -->
+          <form method="post" action="{{ url_for('jobs.advance', job_id=j.id) }}" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn" type="submit">Advance</button>
+          </form>
+
+          <!-- Optional: Print (POST) -->
+          <form method="post" action="{{ url_for('jobs.print_job', job_id=j.id) }}" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn" type="submit">Print</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
