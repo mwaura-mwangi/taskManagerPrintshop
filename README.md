@@ -73,7 +73,7 @@ pip install -r requirements.txt
 
 ```bash
 sudo -u postgres psql
-CREATE USER printshop_user WITH PASSWORD '1234';
+CREATE USER printshop_user WITH PASSWORD "...";
 CREATE DATABASE printshop OWNER printshop_user;
 GRANT ALL PRIVILEGES ON DATABASE printshop TO printshop_user;
 ```
@@ -85,7 +85,7 @@ Create `.env`:
 ```env
 FLASK_ENV=development
 SECRET_KEY=your-secret
-SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://printshop_user:1234@localhost:5432/printshop
+SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://printshop_user:xxxx@localhost:5432/printshop
 SECURITY_PASSWORD_SALT=mysalt
 PRINTER_NAME=PDF
 FILE_STORAGE_DIR=./storage
