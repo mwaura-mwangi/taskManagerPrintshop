@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>New Job</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="f">
+      {{ form.title.label }}<br>
+      {{ form.title(size=50, required=True) }}
+      {% for e in form.title.errors %}<div style="color:#c00">{{ e }}</div>{% endfor %}
+    </div>
+
+    <div class="f">
+      {{ form.priority.label }}<br>
+      {{ form.priority() }}
+      {% for e in form.priority.errors %}<div style="color:#c00">{{ e }}</div>{% endfor %}
+    </div>
+
+    <div class="f">
+      {{ form.due_date.label }}<br>
+      {{ form.due_date(type="date") }}
+      {% for e in form.due_date.errors %}<div style="color:#c00">{{ e }}</div>{% endfor %}
+    </div>
+
+    <div class="f">
+      {{ form.file.label }}<br>
+      {{ form.file(accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff,.ai,.eps") }}
+      <div style="font-size:.9rem; opacity:.8">
+        Allowed: pdf, png, jpg, jpeg, tif, tiff, ai, eps
+      </div>
+      {% for e in form.file.errors %}<div style="color:#c00">{{ e }}</div>{% endfor %}
+    </div>
+
+    <!-- NEW: initial note -->
+    <div class="f">
+      {{ form.note.label }}<br>
+      {{ form.note(rows=3, cols=50, placeholder="Any initial instructions or context...") }}
+      {% for e in form.note.errors %}<div style="color:#c00">{{ e }}</div>{% endfor %}
+    </div>
+
+    <button class="btn" type="submit">{{ form.submit.label.text }}</button>
+  </form>
+{% endblock %}
